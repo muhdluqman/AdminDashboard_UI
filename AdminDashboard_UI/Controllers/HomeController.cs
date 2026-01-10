@@ -18,8 +18,9 @@ namespace AdminDashboard_UI.Controllers
         }
 
         public IActionResult Dashboard()
-        {
-            return View();
+        {var data=_context.Products.ToList();
+
+            return View(data);
         }
 
         public IActionResult Registration()
@@ -38,6 +39,13 @@ namespace AdminDashboard_UI.Controllers
                 return View("PasswordIncorrect");
            }
 
+
+            var existingUser = _context.Users.FirstOrDefault(u => u.Email == email || u.Username == username);
+
+            if (existingUser != null) {
+             return View("ExistingUserFound");
+            }
+
             _context.Users.Add(new Users
             {
                 Username = username,
@@ -48,6 +56,29 @@ namespace AdminDashboard_UI.Controllers
             _context.SaveChanges();
 
             return View("Index");
+        }
+
+        public IActionResult UserNotFound()
+        {
+            return View();
+        }
+
+        public IActionResult Login(string username,string password) { 
+
+            var user=_context.Users.FirstOrDefault(u=>u.Username==username);
+
+            if (user == null)
+            {
+                return RedirectToAction("UserNotFound");
+            }
+
+            if (user.Password != password)
+            {
+                return RedirectToAction("PasswordIncorrect");
+            }
+            return View("Dashboard");
+
+
         }
 
     }

@@ -1,1 +1,62 @@
-﻿Dashboard
+﻿@model IEnumerable<AdminDashboard_UI.Models.Products>
+
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div>
+    <h1 class="display-4 text-center">Dashboard</h1>
+</div>
+
+<div>
+    <p >Welcome to the Admin Dashboard. Here you can manage your products.</p>
+</div>
+<a asp-controller="Product" asp-action="AddProduct" class="btn btn-success mb-3">Add New Product</a>
+
+<div>
+    <h2> Product List</h2>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th> Product ID</th>
+                <th>Name</th>
+                <th> Description</th>
+                <th>Price</th>
+                <th>Color</th>
+
+            </tr>
+
+        </thead>
+        <tbody>
+            @{
+                if (Model == null || !Model.Any())
+                {
+                    <tr>
+                        <td colspan="5" class="text-center">No Products available</td>
+                    </tr> 
+                }
+                else
+                {
+                       @foreach (var product in Model)
+                         {
+                             <tr>
+                                <td>@product.ProductId</td>
+                                <td>@product.ProductName</td>
+                                <td>@product.Description</td>
+                                <td>@product.Price.ToString("RM")</td>
+                                <td>@product.Color</td>
+                            </tr>
+                        
+                         }
+                }
+             
+            }
+          
+        </tbody>
+
+
+    </table>
+
+
+</div>

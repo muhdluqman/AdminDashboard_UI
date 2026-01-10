@@ -1,0 +1,30 @@
+﻿@{
+    TempData["Title"] = "Add Product";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Add Product</h1>
+</div>
+
+
+<div>
+    <form asp-asp-controller="Product" asp-action="AddProductItem" method="post">
+        <div class="mb-3">
+            <label for="productname" class="form-label">Product Name</label>
+            <input type="text" class="form-control" id="productname" name="productname" placeholder="Enter your product" required />
+        </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <input type="text" class="form-control" id="description" name="description" required />
+        </div>
+        <div class="mb-3">
+            <label for="price" class="form-label">Price</label>
+            <input type="number" class="form-control" id="price" name="price" required />
+        </div>
+        <div class="mb-3">
+            <label for="color" class="form-label">Color</label>
+            <input type="text" class="form-control" id="color" name="color" required />
+        </div>
+        <button type="submit" class="btn btn-primary">Add Product</button>
+    </form>
+</div>
