@@ -22,6 +22,27 @@ namespace AdminDashboard_UI.Controllers
             return View();
         }
 
+        public IActionResult UpdateProduct(int productid) { 
+     
+            var data=_context.Products.FirstOrDefault(p=> p.ProductId==productid);
+            return View(data);
+        }
+
+        [HttpPost]
+        public IActionResult UpdateProductItem(int productid,string productname, string description, decimal price, string color)
+        {
+            var existingProduct = _context.Products.FirstOrDefault(p => p.ProductId == productid);
+            if (existingProduct != null)
+            {
+                existingProduct.ProductName = productname;
+                existingProduct.Description = description;
+                existingProduct.Price = price;
+                existingProduct.Color = color;
+                _context.SaveChanges();
+            }
+            return RedirectToAction("Dashboard", "Home");
+        }
+
         [HttpPost]
         public IActionResult AddProductItem(string productname,string description,decimal price, string color)
         {
@@ -39,6 +60,18 @@ namespace AdminDashboard_UI.Controllers
             _context.Products.Add(newProduct);
             _context.SaveChanges();
             return RedirectToAction("Dashboard", "Home");
+        }
+
+        public IActionResult DeleteProduct(int productid)
+        {
+            var product= _context.Products.FirstOrDefault(p => p.ProductId == productid);
+            if (product != null)
+            {
+                _context.Products.Remove(product);
+                _context.SaveChanges();
+            }
+            return RedirectToAction("Dashboard", "Home");
+
         }
     }
 }

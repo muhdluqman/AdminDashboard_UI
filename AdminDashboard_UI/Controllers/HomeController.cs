@@ -76,7 +76,7 @@ namespace AdminDashboard_UI.Controllers
             {
                 return RedirectToAction("PasswordIncorrect");
             }
-            return View("Dashboard");
+            return RedirectToAction("Dashboard");
 
 
         }
